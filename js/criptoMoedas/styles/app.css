@@ -1,0 +1,60 @@
+:root{
+    --cinza: rgb(160, 158, 158);
+    --preta:#141414;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+/*elementos base*/
+body{
+   font-family: 'Arial', Times, serif;
+   color:#141414
+}
+
+.header {
+    height: 10vh;
+    width: auto;
+    padding: 15px;
+    background-color: aliceblue;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main {
+    margin: 5px;
+}
+
+.cripto-content {
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.cripto-card {
+    width: 200px;
+    height: 50px;
+    padding: 5px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #000;
+    border-radius: 5px;
+    margin: 5px;
+    background-color: azure;
+}
+
+.cripto-name {
+    font-weight: bold;
+}
+.cripto-hist {
+    font-size: 12px;
+}

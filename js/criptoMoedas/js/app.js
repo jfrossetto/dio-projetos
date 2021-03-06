@@ -13,7 +13,8 @@ const renderData = (dados) => {
     dados.data.forEach( data => {
         const criptoCard = document.importNode(template.content, true);
         criptoCard.querySelector('.cripto-name').textContent = data.name;
-        criptoCard.querySelector('.cripto-hist').textContent = data.first_historical_data;
+        const first = new Date(data.first_historical_data);
+        criptoCard.querySelector('.cripto-hist').textContent = first.toLocaleString('pt-BR', { timeZone: 'UTC' });
         criptoContent.appendChild(criptoCard);
     });
 }
