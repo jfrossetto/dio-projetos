@@ -1,9 +1,9 @@
 # dio-projetos
-##Projetos dos Bootcamps da dio (Digital One)
+## Projetos dos Bootcamps da dio (Digital One)
 
-###js
+### js
  criptoMoedas
- 
-###html-css
+
+### html-css
  instaClone
  netflixClone
