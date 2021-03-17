@@ -6,12 +6,17 @@ import br.com.jfr.heroes.repository.HeroesRepository;
 import com.querydsl.core.BooleanBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Component
@@ -63,7 +68,6 @@ public class HeroesService {
 
     public Mono<Heroes> update(String id,Heroes heroes) {
         return findById(id)
-                .switchIfEmpty( getError("id informado nao existe na base"))
                 .map( e -> preencheEntidade(heroes,e) )
                 .flatMap( heroesRep::save )
                 ;
@@ -77,6 +81,36 @@ public class HeroesService {
         return entidade;
     }
 
+    public Mono<String> delete(String id) {
+        return findById(id)
+                .flatMap( e -> heroesRep.deleteById(e.getId()).thenReturn(e) )
+                .map(e -> e.getId());
+    }
+
+    public Mono<Page<Heroes>> findByFilter(Pageable pageable, Heroes filter) {
+        return heroesRep.count()
+                .flatMap(heroesCount -> heroesRep.findAll(criarCriterio(filter))
+                        .skip(pageable.getPageSize() * pageable.getPageNumber())
+                        .take(pageable.getPageSize())
+                        .buffer()
+                        .elementAt(0, new ArrayList<>())
+                        .map(heroes -> new PageImpl<>(heroes, pageable, heroesCount)));
+    }
+
+    private BooleanBuilder criarCriterio(final Heroes filter) {
+        final BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+        final Optional<Heroes> heroes = Optional.of(filter);
+
+        final QHeroes qHeroes = QHeroes.heroes;
+        heroes.map(Heroes::getId).ifPresent(id -> booleanBuilder.and(qHeroes.id.eq(id)));
+        heroes.map(Heroes::getName).ifPresent(name -> booleanBuilder.and(qHeroes.name.contains(name)));
+        heroes.map(Heroes::getUniverse).ifPresent(universe -> booleanBuilder.and(qHeroes.universe.contains(universe)));
+        heroes.map(Heroes::getFilms).ifPresent(films -> booleanBuilder.and(qHeroes.films.eq(films)));
+
+        return booleanBuilder;
+    }
+
     private Mono<Heroes> getBadRequest(final String msg) {
         return Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST, msg));
     }
@@ -84,6 +118,5 @@ public class HeroesService {
     private Mono<Heroes> getError(final String msg) {
         return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, msg));
     }
-
 
 }

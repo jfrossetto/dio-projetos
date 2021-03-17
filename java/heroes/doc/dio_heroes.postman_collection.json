@@ -1,0 +1,136 @@
+{
+	"variables": [],
+	"info": {
+		"name": "dio_heroes",
+		"_postman_id": "6f82e7c7-586c-c10b-8b43-c95a9dadf789",
+		"description": "Dio Projeto - Api reativa Heroes\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "heroes",
+			"description": "",
+			"item": [
+				{
+					"name": "Find All",
+					"request": {
+						"url": "localhost:8080/heroes",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "busca todos\t"
+					},
+					"response": []
+				},
+				{
+					"name": "Find by Id",
+					"request": {
+						"url": "localhost:8080/heroes/604e97142a81a6587e591d43",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Find by filter",
+					"request": {
+						"url": {
+							"raw": "localhost:8080/heroes/find-by-filter/?page=0&size=20",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"heroes",
+								"find-by-filter",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"films\": 0\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"url": "localhost:8080/heroes",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"name\": \"teste 3\",\n        \"universe\": \"dc\",\n        \"films\": 0\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"url": "localhost:8080/heroes/60517824f17f5c19d33152fa",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"films\": 3,\n    \"universe\": \"dc\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"url": "localhost:8080/heroes/604e97142a81a6587e591d43",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

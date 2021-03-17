@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import com.querydsl.core.annotations.QueryEntity;
 
@@ -16,12 +16,10 @@ import javax.validation.constraints.NotBlank;
 @QueryEntity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Heroes {
-
-    @Id
-    private String id;
+public class Heroes extends BaseEntity {
 
     @NotBlank
+    @Indexed
     private String name;
 
     private String universe;

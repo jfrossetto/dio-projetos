@@ -3,6 +3,8 @@ package br.com.jfr.heroes.controller;
 import br.com.jfr.heroes.model.Heroes;
 import br.com.jfr.heroes.service.HeroesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +15,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/heroes")
-public class HeroesController {
+public class HeroesController implements GenericController<Heroes> {
 
     private final HeroesService heroesService;
 
@@ -42,7 +44,14 @@ public class HeroesController {
         return ResponseEntity.ok( heroesService.update(id,entity) );
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Mono<String>> delete(@PathVariable("id") final String id) {
+        return ResponseEntity.ok( this.heroesService.delete(id) );
+    }
 
-    // todo delete findByFilter test refactor generics
+    @PostMapping(value = "/find-by-filter")
+    public Mono<Page<Heroes>> findByFilter (final int page, final int size, @RequestBody final Heroes filter) {
+        return this.heroesService.findByFilter(PageRequest.of(page, size), filter);
+    }
 
 }
