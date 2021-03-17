@@ -7,9 +7,7 @@
 * Validacao para não duplicar nome do heroi e não incluir com name vazio
 * Endpoints findById , findAll , save , update , delete , find-by-filter
 * swagger: http://localhost:8080/swagger-ui-heroes-reactive-api.html
-
-####links de apoio:
-
+### Links de apoio:
 * https://projectreactor.io/learn
 * https://www.baeldung.com/querydsl-with-jpa-tutorial
 * https://developer.okta.com/blog/2018/09/21/reactive-programming-with-spring
