@@ -1,5 +1,5 @@
 plugins {
-	id 'com.commercehub.gradle.plugin.avro' version '0.99.99'
+	id 'com.commercehub.gradle.plugin.avro' version '0.21.0'
 	//id 'com.github.davidmc24.gradle.plugin.avro' version '0.99.99'
 	id 'org.springframework.boot' version '2.4.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -17,7 +17,6 @@ configurations {
 }
 
 repositories {
-	gradlePluginPortal()
 	mavenCentral()
 	maven {
 		url 'http://packages.confluent.io/maven/'
@@ -27,29 +26,29 @@ repositories {
 ext {
 	//set('springCloudVersion', "Hoxton.SR6")
 	//set('cucumberVersion', '6.6.0')
-	//set('springCloudVersion', "2020.0.2")
+	set('springCloudVersion', "2020.0.2")
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.data:spring-data-envers'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	//implementation 'org.apache.kafka:kafka-streams'
-	//implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
-	//implementation 'org.springframework.cloud:spring-cloud-stream'
-	//implementation 'org.springframework.cloud:spring-cloud-stream-binder-kafka-streams'
-	//implementation 'io.confluent:kafka-avro-serializer:5.5.0'
+	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+	implementation 'org.springframework.cloud:spring-cloud-starter-stream-kafka'
+	implementation 'io.confluent:kafka-avro-serializer:5.5.0'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
 }
 
-//dependencyManagement {
-//	imports {
-//		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-//	}
-//}
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
 
 test {
 	useJUnitPlatform()

@@ -1,14 +1,17 @@
 package br.dev.jfr.pdv.checkout.services;
 
 import br.dev.jfr.pdv.checkout.dto.CheckoutRequest;
+import br.dev.jfr.pdv.checkout.event.CheckoutCreatedEvent;
 import br.dev.jfr.pdv.checkout.model.Checkout;
 import br.dev.jfr.pdv.checkout.model.CheckoutItem;
 import br.dev.jfr.pdv.checkout.model.Shipping;
 import br.dev.jfr.pdv.checkout.repository.CheckoutRepository;
+import br.dev.jfr.pdv.checkout.streaming.CheckoutCreatedSource;
 import br.dev.jfr.pdv.checkout.util.UUIDUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.integration.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +23,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CheckoutServiceImpl implements CheckoutService {
 
-    @Autowired
-    CheckoutRepository repo;
+    private final CheckoutRepository repo;
+    private final CheckoutCreatedSource checkoutCreatedSource;
 
     private final UUIDUtil uuidUtil;
 
@@ -54,18 +57,20 @@ public class CheckoutServiceImpl implements CheckoutService {
                         .build())
                 .collect(Collectors.toList()));
         final Checkout entity = repo.save(checkout);
-        /*
+
         final CheckoutCreatedEvent checkoutCreatedEvent = CheckoutCreatedEvent.newBuilder()
                 .setCheckoutCode(entity.getCode())
                 .setStatus(entity.getStatus().name())
                 .build();
         checkoutCreatedSource.output().send(MessageBuilder.withPayload(checkoutCreatedEvent).build());
-         */
+
         return Optional.of(entity);
     }
 
     @Override
     public Optional<Checkout> updateStatus(String checkoutCode, Checkout.Status status) {
-        return Optional.empty();
+        final Checkout checkout = repo.findByCode(checkoutCode).orElse(Checkout.builder().build());
+        checkout.setStatus(Checkout.Status.APPROVED);
+        return Optional.of(repo.save(checkout));
     }
 }
