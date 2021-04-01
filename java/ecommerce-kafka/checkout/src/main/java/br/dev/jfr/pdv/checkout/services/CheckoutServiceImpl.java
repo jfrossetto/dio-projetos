@@ -39,6 +39,9 @@ public class CheckoutServiceImpl implements CheckoutService {
         final Checkout checkout = Checkout.builder()
                 .code(uuidUtil.createUUID().toString())
                 .status(Checkout.Status.CREATED)
+                .firstName(checkoutRequest.getFirstName())
+                .lastName(checkoutRequest.getLastName())
+                .email(checkoutRequest.getEmail())
                 .saveAddress(checkoutRequest.getSaveAddress())
                 .saveInformation(checkoutRequest.getSaveInfo())
                 .shipping(Shipping.builder()
@@ -68,9 +71,10 @@ public class CheckoutServiceImpl implements CheckoutService {
     }
 
     @Override
-    public Optional<Checkout> updateStatus(String checkoutCode, Checkout.Status status) {
+    public Optional<Checkout> updateStatus(String checkoutCode, String paymentCode, Checkout.Status status) {
         final Checkout checkout = repo.findByCode(checkoutCode).orElse(Checkout.builder().build());
-        checkout.setStatus(Checkout.Status.APPROVED);
+        checkout.setPaymentCode(paymentCode);
+        checkout.setStatus(status);
         return Optional.of(repo.save(checkout));
     }
 }

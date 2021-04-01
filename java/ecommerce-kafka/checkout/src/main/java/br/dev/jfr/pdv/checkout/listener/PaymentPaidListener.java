@@ -16,6 +16,8 @@ public class PaymentPaidListener {
 
     @StreamListener(PaymentPaidSink.INPUT)
     public void handler(PaymentCreatedEvent paymentCreatedEvent) {
-        checkoutService.updateStatus(paymentCreatedEvent.getCheckoutCode().toString(), Checkout.Status.APPROVED);
+        checkoutService.updateStatus(paymentCreatedEvent.getCheckoutCode().toString(),
+                paymentCreatedEvent.getPaymentCode().toString(),
+                Checkout.Status.APPROVED);
     }
 }

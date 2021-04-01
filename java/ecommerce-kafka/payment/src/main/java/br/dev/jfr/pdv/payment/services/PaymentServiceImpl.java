@@ -26,7 +26,7 @@ public class PaymentServiceImpl implements PaymentService {
     public Optional<Payment> create(CheckoutCreatedEvent checkoutCreatedEvent) {
         final Payment paymentEntity = Payment.builder()
                 .checkoutCode(checkoutCreatedEvent.getCheckoutCode())
-                .code(uuidUtil.createUUID().toString())
+                .code("PAY-"+uuidUtil.createUUID().toString())
                 .build();
         paymentRepository.save(paymentEntity);
         return Optional.of(paymentEntity);

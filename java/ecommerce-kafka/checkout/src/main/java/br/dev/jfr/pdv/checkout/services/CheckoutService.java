@@ -12,5 +12,5 @@ public interface CheckoutService {
 
     Optional<Checkout> create(CheckoutRequest checkoutRequest);
 
-    Optional<Checkout> updateStatus(String checkoutCode, Checkout.Status status);
+    Optional<Checkout> updateStatus(String checkoutCode, String paymentCode, Checkout.Status status);
 }

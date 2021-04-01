@@ -30,6 +30,18 @@ public class Checkout {
     private String code;
 
     @Column
+    private String paymentCode;
+
+    @Column
+    private String firstName;
+
+    @Column
+    private String lastName;
+
+    @Column
+    private String email;
+
+    @Column
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
