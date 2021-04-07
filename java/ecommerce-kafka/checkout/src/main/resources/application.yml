@@ -4,9 +4,9 @@ spring:
   application:
     name: checkout-api
   datasource:
-    url: jdbc:postgresql://localhost:5432/checkout
-    username: postgres
-    password: admin
+    url: jdbc:postgresql://${POST_URL}/checkout
+    username: ${POST_USER}
+    password: ${POST_PASS}
     driver-class-name: org.postgresql.Driver
     jfr:
       connection-test-query: select 1
@@ -27,7 +27,7 @@ spring:
       kafka:
         binder:
           autoCreateTopics: true
-          brokers: localhost:9092
+          brokers: ${BROKER_URL}
           configuration:
             value:
               deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
@@ -51,4 +51,4 @@ spring:
     properties:
       schema:
         registry:
-          url: http://localhost:8081
+          url: ${REGISTRY_URL}

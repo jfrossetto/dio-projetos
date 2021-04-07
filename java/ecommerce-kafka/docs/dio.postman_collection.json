@@ -61,6 +61,52 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "payment",
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5002/v1/payment/all",
+							"host": [
+								"localhost"
+							],
+							"port": "5002",
+							"path": [
+								"v1",
+								"payment",
+								"all"
+							]
+						},
+						"description": "checkout findAll"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
 		}
 	]
 }

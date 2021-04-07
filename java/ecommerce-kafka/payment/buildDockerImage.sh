@@ -1,0 +1,1 @@
+docker build --file=./Dockerfile --tag=jfrossetto/dio-payment-api:latest .
