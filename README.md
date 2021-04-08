@@ -2,7 +2,7 @@
 ## Projetos dos Bootcamps da dio (Digital One)
 
 ### java/spring-boot
-[e-commerce microserviços](https://github.com/jfrossetto/dio-projetos/tree/dev-ecommerce-kafka/java/ecommerce-kafka) > E-commerce com microserviços (Apache Kafka,Spring Cloud Streams, Spring Boot)
+[E-Commerce microserviços](https://github.com/jfrossetto/dio-projetos/tree/dev-ecommerce-kafka/java/ecommerce-kafka) > E-Commerce com microserviços (Apache Kafka,Spring Cloud Streams, Spring Boot)
 [heroes](https://github.com/jfrossetto/dio-projetos/tree/dev-heroes-spring-webflux/java/heroes) > API Reativa usando Spring WebFlux e MongoDB
 
 ### js

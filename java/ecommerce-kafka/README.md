@@ -1,4 +1,4 @@
-# Ecommerce com microserviços 
+# E-Commerce com microserviços 
 ##  (Apache kafka, Spring Boot, Spring Cloud Streams, docker)
 
 uso do Makefile para :
